@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useEffect } from "react"
 import PropTypes from "prop-types"
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 import axios from 'axios';
+import { Spin } from 'antd';
 
 
 
@@ -15,18 +16,23 @@ const coordinates = [
   [57.684758, 39.738521]
 ];
 
-const HelloWorld = (props) => {
-  const [mapState, setMapState] = useState(defaultMapState);
-  const handlePlaceMarkClick = useCallback(
-   (e, coordinate) => {
-    e.originalEvent.target.properties._data = { balloonContent: "loading" }
-    setMapState({center: coordinate, zoom: 17})
-    
+const customBalloon = (coordinate) => {
+  
+  useEffect(() => {
     axios.get(`http.kek.wait`)
       .then(res => {
         console.log("wtf")
       })
-      .catch(()=> e.originalEvent.target.properties._data = { balloonContent: coordinate } )
+      .catch(()=> set )
+  });
+}
+
+const HelloWorld = (props) => {
+  const [balloonProps, setBalloonProps] = useState({});
+  const [mapState, setMapState] = useState(defaultMapState);
+  const handlePlaceMarkClick = useCallback(
+    (e, coordinate) => {
+      setMapState({center: coordinate, zoom: 17})
     },
    []
   )
@@ -40,12 +46,10 @@ const HelloWorld = (props) => {
               <Placemark 
                 geometry={coordinate}  
                 options={
-                  { 
-                    hideIconOnBalloonOpen: false,
-                    openEmptyBalloon: true,
+                  {
+                    hasBalloon: false,  
                   } 
                 }
-                properties={"1,2,3"}
                 modules={['geoObject.addon.balloon']} 
                 onClick={ (e) => handlePlaceMarkClick(e, coordinate) }
               />
