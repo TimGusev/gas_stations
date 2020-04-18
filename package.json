@@ -2,6 +2,7 @@
   "name": "gas_stations",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.0.6",
     "@babel/preset-react": "^7.9.4",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
@@ -15,7 +16,8 @@
     "react-dom": "^16.13.1",
     "react-yandex-maps": "^4.2.0",
     "react_ujs": "^2.6.1",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "underscore": "^1.10.2"
   },
   "version": "0.1.0",
   "devDependencies": {
