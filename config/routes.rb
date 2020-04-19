@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
-	resources :map, only: [:index]
+  devise_for :users
+  resources :map, only: [:index]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root to: "map#index"
 end
