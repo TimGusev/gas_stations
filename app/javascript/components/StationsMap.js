@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
-import { YMaps, Map, Placemark } from "react-yandex-maps";
+import { YMaps, Map, Placemark, ZoomControl } from "react-yandex-maps";
 import axios from 'axios';
 import _ from "underscore";
 import CustomBalloon from "./CustomBalloon"
@@ -61,6 +61,7 @@ const StationsMap = (props) => {
             )
           }
           { !_.isEmpty(balloonProps) && <CustomBalloon station={balloonProps} handler={handleCloseButtonClick}/> }
+          <ZoomControl state={mapState}/>
         </Map>
       </YMaps>
     </div>
