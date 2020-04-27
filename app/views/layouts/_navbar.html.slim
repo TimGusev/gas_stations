@@ -1,13 +1,11 @@
-nav
-  span
-  ul
+nav class="navbar navbar-dark bg-dark"
+  a.navbar-brand href="#"  Navbar  
+  .navbar-nav
     - if current_user
-      li.nav-item.active.mx-2
-        = link_to t('Личный кабинет'), user_path(current_user) , class:'nav-link'
-      li.nav-item.active.pull-right
-        = link_to t('Выйти'), destroy_user_session_path, method: :delete, class:'nav-link'
+      .nav-item.active
+        = link_to 'Личный кабинет', user_path(current_user), class:'mx-2 nav-link navbar-link'
+        = link_to 'Выйти', destroy_user_session_path, method: :delete, class:'mx-2 nav-link navbar-link'
     - else
-      li.nav-item.active.mx-2
-        = link_to t('Войти'), new_user_session_path, class:'nav-link'
-      li.nav-item.active.mx-2
-        = link_to t('Зарегистрироваться'), new_user_registration_path, class:'nav-link'
+      .nav-item.active
+        = link_to 'Зарегистрироваться', new_user_registration_path, class:'mx-2 nav-link navbar-link'
+        = link_to 'Войти', new_user_session_path, class:'mx-2 nav-link navbar-link'
