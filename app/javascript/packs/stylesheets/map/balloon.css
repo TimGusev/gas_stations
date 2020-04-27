@@ -8,10 +8,6 @@
   border-radius: 8px;
 }
 
-.balloon__wrapper {
-  width: 100%;
-}
-
 .balloon__title {
   color: #333;
   font-size: 22px;
@@ -29,9 +25,11 @@
 .balloon__button--close {
   color: #999;
   font-weight: 700;
-  margin-left: 45px;
   font-size: 18px;
   outline: 0;
+  float: right;
+  margin-top: 8px;
+  margin-left: 55px;
 }
 
 .balloon__properties--title {
@@ -46,6 +44,21 @@
   margin-top: 7px;
 }
 
+.balloon__charge_container {
+  border-top: 1px solid #f0f0e7;
+  padding: 15px 20px 15px;
+  justify-content: center;
+}
+
+.balloon__charge-warning {
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.balloon__charge-button {
+  margin: 0 auto;
+}
 .map {
   width: 100%;
   height: 100%;

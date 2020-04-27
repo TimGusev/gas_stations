@@ -15,7 +15,7 @@ const coordinates = [
   [57.684758, 39.738521]
 ];
 
-const StationsMap = (props) => {
+const StationsMap = ({ user }) => {
   const [balloonProps, setBalloonProps] = useState({});
   const [mapState, setMapState] = useState(defaultMapState);
   const handlePlaceMarkClick = useCallback(
@@ -60,7 +60,7 @@ const StationsMap = (props) => {
               />
             )
           }
-          { !_.isEmpty(balloonProps) && <CustomBalloon station={balloonProps} handler={handleCloseButtonClick}/> }
+          { !_.isEmpty(balloonProps) && <CustomBalloon station={balloonProps} user={user} handler={handleCloseButtonClick}/> }
           <ZoomControl state={mapState}/>
         </Map>
       </YMaps>
