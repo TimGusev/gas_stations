@@ -1,0 +1,40 @@
+.calculator {
+  border-radius: 8px;
+  border: 1px solid #999;
+  padding: 20px 25px;
+  max-width: 500px; 
+  margin: auto;
+}
+
+.calculator__wrapper {
+  margin-top: 10%; 
+  position: relative;
+}
+
+.calculator__field {
+  margin: 0 10px;
+  display: grid;
+}
+
+.calculator__field--title {
+  font-size: 16px;
+  color: #333;
+}
+
+.calculator__field--input {
+  margin: 5px 0;
+  color: #333;
+  width: 120px;
+}
+
+.calculator__row {
+  margin: 0 auto 10px;
+}
+
+.payment_button {
+  width: 150px;
+}
+
+.payment_button__wrapper {
+  margin: 15px auto 0;
+}
