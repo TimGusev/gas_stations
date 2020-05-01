@@ -7,6 +7,7 @@ const ChargeInformation = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    getActualInfo();
   }, [])
 
   const getActualInfo = () => {

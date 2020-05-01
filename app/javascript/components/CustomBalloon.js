@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Spin, Row, Col } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const CustomBalloon = ({station, handler, user}) => {
   return(
