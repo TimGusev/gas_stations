@@ -75,4 +75,4 @@ const CustomBalloon = ({station, handler, user}) => {
   )  
 }
 
-export default CustomBalloon
+export default CustomBalloon;

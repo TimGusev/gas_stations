@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 import StationsMap from './StationsMap'
 import Calculator from './Calculator'
+import ChargeInformation from './ChargeInformation'
 
 const MapRouter = ({user}) => {
   return(
@@ -13,7 +14,7 @@ const MapRouter = ({user}) => {
             <Route 
               path={path}
               exact
-              render={() => <StationsMap user={user} />}
+              render={() => <ChargeInformation user={user} />}
             />
           ))
         }

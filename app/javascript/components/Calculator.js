@@ -29,7 +29,7 @@ const Calculator = (props) => {
   );
   
   return(
-    <div className="calculator__wrapper">
+    <form className="calculator__wrapper">
       <Row className="calculator">
         <Row className="calculator__row">
           <h2>Расчитать стоимость</h2>
@@ -70,10 +70,10 @@ const Calculator = (props) => {
           </Col>
         </Row>
         <Row className="payment_button__wrapper">
-          <button type="button" className="btn btn-primary payment_button">Оплатить</button>
+          <button type="submit" className="btn btn-primary payment_button">Оплатить</button>
         </Row>
       </Row>
-    </div>
+    </form>
   )
 }
 
