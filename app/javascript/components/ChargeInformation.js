@@ -27,13 +27,13 @@ const ChargeInformation = () => {
         Идет зарядка
       </Row>
       <Row className="charge_information__info-block">
-        <Col>
-          <Row>
+        <Col className="charge_information__info-block--text">
+          <Row className="my-2">
             <Col>
               <div>Начато в: 20.05.28 15.40</div>
             </Col>
           </Row>
-          <Row>
+          <Row className="my-2">
             <Col>
               <div>Заряжено: 5 из 1000 кВатт</div>
             </Col>
