@@ -7,18 +7,25 @@ const { TabPane } = Tabs;
 
 const AdminPanel = ({users}) => {
   const [selectedRows, setSelectedRows] = useState([]);
+  const [currentUsers, setCurrentUsers] = useState(users);
   
   const handleRowSelected = (state) => {
     setSelectedRows(state.selectedRows);
   };
 
   const deleteButtonClickHandler = () => {
+    const token = $('meta[name="csrf-token"]').attr('content');
     axios({
       method: 'post',
       url: "http://localhost:3000/admin/delete",
-      data: { selectedRows }
+      data: { selectedRows, authenticity_token: token },
+      headers: { "X-CSRFToken": token }
     })
-      .then((result) => console.log(result))
+      .then(() => {
+          setCurrentUsers(currentUsers.filter(item => !selectedRows.includes(item)));
+          state.selectedRows = []
+        } 
+      )
       .catch((error) => console.log(error));
   };
 
@@ -26,7 +33,7 @@ const AdminPanel = ({users}) => {
     axios({
       method: 'patch',
       url: "localhost:3000/admin",
-      data: { users: selectedRows }
+      data: { admin: selectedRows }
     })
       .then((result) => console.log(result))
       .catch((error) => console.log(error));
@@ -63,7 +70,7 @@ const AdminPanel = ({users}) => {
     <Tabs defaultActiveKey="1" className="container">
       <TabPane tab="Пользователи" key="1">
         <DataTable
-          data={users}
+          data={currentUsers}
           columns={columns}
           selectableRows
           selectableRowsHighlight

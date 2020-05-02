@@ -26,6 +26,7 @@ gem 'devise'
 gem 'cancancan'
 gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
+gem 'rack-cors'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
