@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom'
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 import StationsMap from './StationsMap'
 import Calculator from './Calculator'
-import ChargeInformation from './ChargeInformation'
 
-const MapRouter = ({user}) => {
+const MapRouter = ({ user }) => {
   return(
     <Router>
       <Switch>
@@ -19,6 +18,7 @@ const MapRouter = ({user}) => {
           ))
         }
         <Route path="/calculator" component={Calculator} />
+        <Route path="/charge_information/:number" component={ChargeInformation} />
       </Switch>
     </Router>
   )

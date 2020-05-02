@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Progress, Row, Col } from 'antd';
 import axios from 'axios';
 
-const ChargeInformation = () => {
+const ChargeInformation = (props) => {
   const [chargeState, setChargeState] = useState({ percent: 0.1 })
   const [isLoaded, setIsLoaded] = useState(false);
 
