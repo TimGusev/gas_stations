@@ -31,7 +31,6 @@ const ChargesDatatable = ({ user }) => {
       name: 'Действия',
       cell: (row) => <Link to={`/charge_information/${row.id}`}>Подробнее</Link>
     }
-
   ];
 
   useEffect(() => {

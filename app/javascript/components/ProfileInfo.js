@@ -27,12 +27,7 @@ const ProfileInfo = ({user}) => {
       </Row>
       <Row>
         <Col>
-          <a href="#">Изменить профиль</a>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <a href="#">Сменить пароль</a>
+          <a href="/users/edit">Изменить профиль</a>
         </Col>
       </Row>
     </div>

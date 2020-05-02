@@ -3,6 +3,8 @@ nav class="navbar navbar-dark bg-dark"
   .navbar-nav
     - if current_user
       .nav-item.active
+        - if current_user.admin?
+          = link_to 'Админ панель', admin_index_path, class:'mx-2 nav-link navbar-link'
         = link_to 'Личный кабинет', user_path(current_user), class:'mx-2 nav-link navbar-link'
         = link_to 'Выйти', destroy_user_session_path, method: :delete, class:'mx-2 nav-link navbar-link'
     - else

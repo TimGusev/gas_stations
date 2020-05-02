@@ -3,5 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :map, only: [:index]
   resources :users, only: %i[show update]
-  resources :admin
+  resources :admin, only: %i[index update]
+
+  post '/admin/delete', to: 'admin#destroy'
 end
