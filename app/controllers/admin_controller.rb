@@ -7,9 +7,15 @@ class AdminController < ApplicationController
   	User.where(id: admin_attributes["selectedRows"].collect { |el| el["id"] }).destroy_all
   end
 
-  def update
-  	admin_attributes["selectedRows"].each do |user|
-  		User.find(user.id).update(admin: user.admin, email: user.email, username: user.username)
+  def make_admin
+  	admin_attributes.collect { |el| el["id"] }.each do |id|
+      User.find(id).update(admin: true)
+    end
+  end
+
+  def drop_admin
+    admin_attributes.collect { |el| el["id"] }.each do |id|
+      User.find(id).update(admin: false)
     end
   end
 
