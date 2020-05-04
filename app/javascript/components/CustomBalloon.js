@@ -10,7 +10,7 @@ const CustomBalloon = ({station, handler, user}) => {
       <Row>
         <Col className="balloon__title--wrapper">
           <span className="balloon__title">
-            { station.title }
+            { station.name }
           </span>
           <CloseOutlined className="balloon__button--close" onClick={handler}/>
         </Col>
@@ -21,7 +21,7 @@ const CustomBalloon = ({station, handler, user}) => {
             Адрес
           </span>
           <span className="balloon__properties--body">
-            { station.address }
+            { station.address.city + " " + station.address.street }
           </span>
         </Col>
       </Row>
@@ -53,8 +53,10 @@ const CustomBalloon = ({station, handler, user}) => {
                   {
                     pathname: '/calculator',
                     state: {
+                      cost: station.cost,
                       power: station.power,
-                      user:  user
+                      user:  user,
+                      station_id: station.id
                     }
                   }
                 }

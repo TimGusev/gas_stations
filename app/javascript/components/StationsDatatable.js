@@ -10,7 +10,7 @@ const StationsDatatable = () => {
   ];
 
   const [selectedRows, setSelectedRows] = useState([]);
-  const [stations, setStations] = useState(data);
+  const [stations, setStations] = useState([]);
   const [newRender, setNewRender] = useState(false);
   const [toggleCleared, setToggleCleared] = useState(false);
   const [formProps, setFormProps] = useState(null);
@@ -19,7 +19,7 @@ const StationsDatatable = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [error, setError] = useState(false);
   const [isObjectLoaded, setIsObjectLoaded] = useState(false);
-  const [unRegistratedStations, setUnRegistratedStations] = useState(data);
+  const [unRegistratedStations, setUnRegistratedStations] = useState([]);
   const [isUnregistratedLoaded, setIsUnregistratedLoaded] = useState(true);
   
   useEffect(() => {
@@ -27,9 +27,9 @@ const StationsDatatable = () => {
 
     axios({
       method: 'get',
-      url: "http/stations",
+      url: "https://chargerswebapi.azurewebsites.net/stations",
     }).then((response) => { 
-        setStations(response);
+        setStations(response.data);
         setIsObjectLoaded(true);
       })
       .catch((error) => {
@@ -44,9 +44,10 @@ const StationsDatatable = () => {
 
     axios({
       method: 'get',
-      url: "http/unregistered/stations",
+      url: "https://chargerswebapi.azurewebsites.net/unregistered/stations",
     }).then((response) => { 
-        setUnRegistratedStations(response);
+        console.log(response.data)
+        setUnRegistratedStations(response.data);
         setIsUnregistratedLoaded(true);
       })
       .catch((error) => {
@@ -75,8 +76,8 @@ const StationsDatatable = () => {
 
   const onRedFinish = (values) => {
     axios({
-      method: 'post',
-      url: "kek.w",
+      method: 'patch',
+      url: `https://chargerswebapi.azurewebsites.net/stations/${redFormProps.id}`,
       data: values
     }).then(() => { 
         stations.map(el => {
@@ -96,7 +97,7 @@ const StationsDatatable = () => {
   const deleteButtonClickHandler = () => {
     axios({
       method: 'post',
-      url: "/stations/remove",
+      url: "https://chargerswebapi.azurewebsites.net/stations/remove",
       data: selectedRows.map(el => el.id) 
     })
       .then(() => {
@@ -126,7 +127,7 @@ const StationsDatatable = () => {
   const onFinish = (values) => {
     axios({
       method: 'post',
-      url: `/stations/${formProps}`,
+      url: `https://chargerswebapi.azurewebsites.net/stations/${formProps}`,
       data: values
     }).then(() => {
         setUnRegistratedStations(unRegistratedStations.filter(item => item.id != formProps));
@@ -198,12 +199,12 @@ const StationsDatatable = () => {
     },
     {
       name: 'Широта',
-      selector: 'address.latitude',
+      selector: 'latitude',
       maxWidth: "50px",
     },
     {
       name: 'Долгота',
-      selector: 'address.longitude',
+      selector: 'longitude',
       maxWidth: "50px",
     },
     { 

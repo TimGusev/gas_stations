@@ -3,7 +3,7 @@ import { Progress, Row, Col } from 'antd';
 import axios from 'axios';
 
 const ChargeInformation = (props) => {
-  const [chargeState, setChargeState] = useState({ percent: 0.1 })
+  const [chargeState, setChargeState] = useState({})
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -11,14 +11,13 @@ const ChargeInformation = (props) => {
   }, [])
 
   const getActualInfo = () => {
-    axios.get(`http.kek.wait`)
+    axios.get(`https://chargerswebapi.azurewebsites.net/charge/${props.location.state.user}/${props.location.state.id}`)
       .then((result) => {
-          setIsLoaded(true);
-          setItems(result.items);
+          setChargeState(result.data);
           setTimeout(function() { getActualInfo(); }, 1000);
         })
       .catch((error) => {
-          setIsLoaded(true);
+          console.log("here is misteke")
           setTimeout(function() { getActualInfo(); }, 10000);
         });
   }
@@ -31,26 +30,21 @@ const ChargeInformation = (props) => {
         <Col className="charge_information__info-block--text">
           <Row className="my-2">
             <Col>
-              <div>Начато в: 20.05.28 15.40</div>
+              <div>Начато в: {chargeState.startedAt}</div>
             </Col>
           </Row>
           <Row className="my-2">
             <Col>
-              <div>Заряжено: 5 из 1000 кВатт</div>
+              <div>Заряжено: {chargeState.currentAmountOfElectricity} из {chargeState.totalAmountOfElectricity} кВатт</div>
             </Col>
           </Row>
           </Col>
         <Col>
           <Row className="charge_information__progress-bar">
             <Col>
-              <Progress type="circle" percent={chargeState.percent} />
+              <Progress type="circle" percent={chargeState.currentAmountOfElectricity / chargeState.totalAmountOfElectricity *100} />
             </Col>
           </Row>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <div>Зарядная станция: Зарядная станция на Невском</div>
         </Col>
       </Row>
     </div>

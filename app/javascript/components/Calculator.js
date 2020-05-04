@@ -1,12 +1,17 @@
 import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
-import { InputNumber, Row, Col } from 'antd';
+import { InputNumber, Row, Col, Modal, Button } from 'antd';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Calculator = (props) => {
   const [calcState, setCalcState] = useState({ neededPower: 0, time: 0, cost: 0 });
-  const costCof = 0.03;
-  const power = 75;
+  const [visible, setVisible] = useState(false);
+  const [chargeId, setChargeId] = useState(null);
+  const costCof = props.location.state.cost;
+  const power = 2;
 
+  //stop when 100
   const onTimeChange = useCallback(
     (value) => {
       setCalcState({ neededPower: value * power, cost: value * power / costCof, time: value });
@@ -28,52 +33,89 @@ const Calculator = (props) => {
     [],
   );
   
+  const payClickHandler = () => {
+    axios({
+      method: 'post',
+      url: `https://chargerswebapi.azurewebsites.net/charge/${props.location.state.user}`,
+      data: {
+        stationId: props.location.state.station_id,
+        amountOfEletrcity: calcState.neededPower
+      }
+    }).then((response) => { 
+        setVisible(true);
+        setChargeId(response.data)
+      })
+      .catch((error) => {
+        console.log("ошибка при оплате")
+      });
+  }
+
   return(
-    <form className="calculator__wrapper">
-      <Row className="calculator">
-        <Row className="calculator__row">
-          <h2>Расчитать стоимость</h2>
+    <div>
+      <form className="calculator__wrapper">
+        <Row className="calculator">
+          <Row className="calculator__row">
+            <h2>Расчитать стоимость</h2>
+          </Row>
+          <Row className="calculator__row">
+            <Col className="calculator__field">
+              <span className="calculator__field--title">
+                Всего энергии
+              </span>
+              <InputNumber
+                value={calcState.neededPower}
+                onChange={onPowerChange}
+                precision={2}
+                className="calculator__field--input"
+              />
+            </Col>
+            <Col className="calculator__field">
+              <span className="calculator__field--title">
+                Время
+              </span>
+              <InputNumber
+                value={calcState.time}
+                onChange={onTimeChange}
+                precision={2}
+                className="calculator__field--input"
+              />
+            </Col>
+            <Col className="calculator__field">
+              <span className="calculator__field--title">
+                Стоимость
+              </span>
+              <InputNumber
+                value={calcState.cost}
+                onChange={onCostChange}
+                precision={2}
+                className="calculator__field--input"
+              />
+            </Col>
+          </Row>
+          <Row className="payment_button__wrapper">
+            <button type="button" onClick={payClickHandler} className="btn btn-primary payment_button">Оплатить</button>
+          </Row>
         </Row>
-        <Row className="calculator__row">
-          <Col className="calculator__field">
-            <span className="calculator__field--title">
-              Всего энергии
-            </span>
-            <InputNumber
-              value={calcState.neededPower}
-              onChange={onPowerChange}
-              precision={2}
-              className="calculator__field--input"
-            />
-          </Col>
-          <Col className="calculator__field">
-            <span className="calculator__field--title">
-              Время
-            </span>
-            <InputNumber
-              value={calcState.time}
-              onChange={onTimeChange}
-              precision={2}
-              className="calculator__field--input"
-            />
-          </Col>
-          <Col className="calculator__field">
-            <span className="calculator__field--title">
-              Стоимость
-            </span>
-            <InputNumber
-              value={calcState.cost}
-              onChange={onCostChange}
-              precision={2}
-              className="calculator__field--input"
-            />
-          </Col>
-        </Row>
-        <Row className="payment_button__wrapper">
-          <button type="submit" className="btn btn-primary payment_button">Оплатить</button>
-        </Row>
-      </Row>
-    </form>
+      </form>
+      <Modal
+        visible={visible}
+        footer={null}
+      >
+        <div>
+          Платеж прошел, нажмите подробнее что-бы узнать как идет зарядка.
+        </div>
+        <Link to={
+           {
+            pathname: `/charge_information/${chargeId}`,
+            state: {
+              user:  props.location.state.user,
+              id: chargeId
+            }
+          }
+        }
+        >Подробнее</Link>
+      </Modal>
+    </div>
   )
 }
 

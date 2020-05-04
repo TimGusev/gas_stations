@@ -10,32 +10,33 @@ const defaultMapState = {
   zoom: 5,
 };
 
-const coordinates = [
-  [55.684758, 37.738521],
-  [57.684758, 39.738521]
-];
-
 const StationsMap = ({ user }) => {
   const [balloonProps, setBalloonProps] = useState({});
   const [mapState, setMapState] = useState(defaultMapState);
+  const [coordinates, setCoordinates] = useState([]);
+
   const handlePlaceMarkClick = useCallback(
     (coordinate) => {
-      setMapState({center: coordinate, zoom: 17})
+      setMapState({center: [coordinate.latitude, coordinate.longitude], zoom: 5 });
 
-      axios.get(`http.kek.wait`)
-        .then((res) => {
-          console.log("wtf")
+      axios.get(`https://chargerswebapi.azurewebsites.net/stations/${coordinate.id}`).then((res) => {
+          console.log(res.data)
+          setBalloonProps(res.data)
+        }).catch((error) => {
+          console.log("Ошибка при получении данных о конкретной станции")
         })
-        .catch(setBalloonProps({ 
-          "title": "Электрозаправочная станция № 1", 
-          "status": "Доступна",
-          "power": "75 Квт / ч", 
-          "address": "Московская область, Москва, ул. Поллесская 56" 
-        }))
-    },
-    []
+    }
   )
   
+  useEffect(() => {
+    axios.get("https://chargerswebapi.azurewebsites.net/map/stations").then((response) => { 
+        setCoordinates(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  }, []);
+
   const handleCloseButtonClick = useCallback(() => setBalloonProps({}), []);
 
   return (
@@ -49,7 +50,7 @@ const StationsMap = ({ user }) => {
           {
             coordinates.map(coordinate => 
               <Placemark 
-                geometry={coordinate}  
+                geometry={[coordinate.latitude, coordinate.longitude]}  
                 options={
                   {
                     hasBalloon: false,  

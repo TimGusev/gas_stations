@@ -7,29 +7,45 @@ import axios from 'axios';
 import ProfileInfo from './ProfileInfo';
 
 const ChargesDatatable = ({ user }) => {
-  const [chargeState, setChargeState] = useState({ percent: 0.1 })
+  const [chargeState, setChargeState] = useState([])
   const [isLoaded, setIsLoaded] = useState(false);
       
-  const data = [
-    { id: 1, title: 'Conan the Barbarian', status: 'charging', percent: 20 },
-    { id: 2, title: 'Conan', status: 'done', percent: 100 }
-  ];
-  
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: `https://chargerswebapi.azurewebsites.net/charge/${user.id}`,
+    }).then((response) => { 
+        setChargeState(response.data);
+      })
+      .catch((error) => {
+        console.log("ошибка при получении зарядок")
+      });
+  }, []);
+
   const columns = [
     {
       name: 'Станция',
-      selector: 'title',
+      selector: 'name',
       maxWidth: "350px"
     },
     {
       name: 'Статус',
       selector: 'status',
-      cell: (row) => <Progress size="small" percent={row.percent} />,
+      cell: (row) => <Progress size="small" percent={row.currentAmountOfElectricity / row.totalAmountOfElectricity} />,
       maxWidth: "150px"
     },
     {
       name: 'Действия',
-      cell: (row) => <Link to={`/charge_information/${row.id}`}>Подробнее</Link>
+      cell: (row) => <Link to={
+        {
+          pathname: `/charge_information/${row.id}`,
+          state: {
+            user:  user.id,
+            id: row.id
+          }
+        }
+      }>Подробнее</Link>
     }
   ];
 
@@ -43,7 +59,7 @@ const ChargesDatatable = ({ user }) => {
       </Col>
       <Col xs={15}>
         <DataTable
-          data={data}
+          data={chargeState}
           columns={columns}
           className="charge_datatable"
           title="Мои зарядки"
