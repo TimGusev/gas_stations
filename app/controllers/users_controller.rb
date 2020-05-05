@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
+  before_action :check_rights
 
   def show
-    @hello = "hello #{current_user&.username}"
   end
 
   def update
@@ -14,5 +14,9 @@ class UsersController < ApplicationController
 
   def user_attributes
     params.require(:user).permit(:email, :username)
+  end
+
+  def check_rights
+    raise CanCan::AccessDenied unless current_user&.admin? || current_user == @user
   end
 end

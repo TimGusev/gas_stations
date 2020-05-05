@@ -1,4 +1,6 @@
 class AdminController < ApplicationController
+  before_action :check_rights
+  
   def index
     @users = User.all
   end
@@ -20,6 +22,10 @@ class AdminController < ApplicationController
   end
 
   private
+
+  def check_rights
+    raise CanCan::AccessDenied unless current_user&.admin?
+  end
 
   def admin_attributes
     params.require(:admin)
