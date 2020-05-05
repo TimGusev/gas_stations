@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Progress, Row, Col } from 'antd';
 import axios from 'axios';
 
 const ChargeInformation = (props) => {
   const [chargeState, setChargeState] = useState({})
   const [isLoaded, setIsLoaded] = useState(false);
+  const content = useRef(null);
 
   useEffect(() => {
     getActualInfo();
   }, [])
 
   const getActualInfo = () => {
+    if(!content) return;
+    
     axios(
       { 
         method: "get",
@@ -28,7 +31,7 @@ const ChargeInformation = (props) => {
         });
   }
   return (
-    <div className="container charge_information">
+    <div ref={content} className="container charge_information">
       <Row className="charge_information__title">
         Идет зарядка
       </Row>

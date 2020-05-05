@@ -5,33 +5,39 @@ import { CloseOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const CustomBalloon = ({station, handler, user}) => {
+  const addressAttributes = [
+    station.address.country,
+    station.address.region,
+    station.address.city,
+    station.address.street,
+    station.address.house
+  ];
+
   return(
     <div className="balloon">
-      <Row>
-        <Col className="balloon__title--wrapper">
-          <span className="balloon__title">
-            { station.name }
-          </span>
-          <CloseOutlined className="balloon__button--close" onClick={handler}/>
-        </Col>
-      </Row>
+      <div className="balloon__title--wrapper">
+        <span className="balloon__title">
+          { station.name }
+        </span>
+        <CloseOutlined className="balloon__button--close" onClick={handler}/>
+      </div>
       <Row>
         <Col className="balloon__properties">
           <span className="balloon__properties--title">
             Адрес
           </span>
           <span className="balloon__properties--body">
-            { station.address.city + " " + station.address.street }
+            { addressAttributes.filter(Boolean).join(', ') }
           </span>
         </Col>
       </Row>
       <Row>
         <Col className="balloon__properties">
           <span className="balloon__properties--title">
-            Мощность
+            Цена за 1 киловатт
           </span>
           <span className="balloon__properties--body">
-            { station.power }
+            { station.cost }
           </span>
         </Col>
       </Row>
