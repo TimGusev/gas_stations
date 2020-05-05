@@ -44,6 +44,7 @@ const StationsMap = ({ user }) => {
       <YMaps>
         <Map 
           state={mapState}
+          options={{ minZoom: 4, maxZoom: 17 }}
           className="map" 
           onClick={() => setBalloonProps({})}
         >
