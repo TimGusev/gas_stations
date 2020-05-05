@@ -11,14 +11,20 @@ const ChargeInformation = (props) => {
   }, [])
 
   const getActualInfo = () => {
-    axios.get(`https://chargerswebapi.azurewebsites.net/charge/${props.location.state.user}/${props.location.state.id}`)
-      .then((result) => {
+    axios(
+      { 
+        method: "get",
+        url: `https://chargerswebapi.azurewebsites.net/charge/${props.location.state.user}/${props.location.state.id}`, 
+        crossDomain: true
+      }
+      ).then((result) => {
           setChargeState(result.data);
+          if(result.data.currentAmountOfElectricity / result.data.totalAmountOfElectricity * 100 >= 100) return; 
           setTimeout(function() { getActualInfo(); }, 1000);
         })
       .catch((error) => {
           console.log("here is misteke")
-          setTimeout(function() { getActualInfo(); }, 10000);
+          setTimeout(function() { getActualInfo(); }, 1000);
         });
   }
   return (
@@ -42,7 +48,7 @@ const ChargeInformation = (props) => {
         <Col>
           <Row className="charge_information__progress-bar">
             <Col>
-              <Progress type="circle" percent={chargeState.currentAmountOfElectricity / chargeState.totalAmountOfElectricity *100} />
+              <Progress type="circle" percent={Math.round(chargeState.currentAmountOfElectricity / chargeState.totalAmountOfElectricity *100)} />
             </Col>
           </Row>
         </Col>

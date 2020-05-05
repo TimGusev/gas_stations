@@ -46,7 +46,6 @@ const StationsDatatable = () => {
       method: 'get',
       url: "https://chargerswebapi.azurewebsites.net/unregistered/stations",
     }).then((response) => { 
-        console.log(response.data)
         setUnRegistratedStations(response.data);
         setIsUnregistratedLoaded(true);
       })
@@ -133,6 +132,7 @@ const StationsDatatable = () => {
         setUnRegistratedStations(unRegistratedStations.filter(item => item.id != formProps));
         setFormProps(null);
         setModalVisible(false);
+        setIsObjectLoaded(false);
       })
       .catch((error) => {setError(true)});
   };
