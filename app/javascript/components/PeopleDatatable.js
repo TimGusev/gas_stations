@@ -26,7 +26,7 @@ const PeopleDatatable = ({ users }) => {
   const deleteButtonClickHandler = () => {
     axios({
       method: 'post',
-      url: "http://localhost:3000/admin/delete",
+      url: "http://e-cars-stations.herokuapp.com/admin/delete",
       data: { selectedRows, authenticity_token: token },
       headers: { "X-CSRFToken": token }
     })
@@ -42,7 +42,7 @@ const PeopleDatatable = ({ users }) => {
   const makeAdminButtonClickHandler = () => {
     axios({
       method: 'post',
-      url: "http://localhost:3000/admin/make_admin",
+      url: "http://e-cars-stations.herokuapp.com/admin/make_admin",
       data: { admin: selectedRows.filter((obj) => obj.id), authenticity_token: token },
       headers: { "X-CSRFToken": token }
     })
@@ -54,7 +54,7 @@ const PeopleDatatable = ({ users }) => {
   const dropAdminButtonClickHandler = () => {
     axios({
       method: 'post',
-      url: "http://localhost:3000/admin/drop_admin",
+      url: "http://e-cars-stations.herokuapp.com/admin/drop_admin",
       data: { admin: selectedRows.filter((obj) => obj.id), authenticity_token: token },
       headers: { "X-CSRFToken": token }
     })

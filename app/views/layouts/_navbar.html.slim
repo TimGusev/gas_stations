@@ -1,13 +1,16 @@
 nav class="navbar navbar-dark bg-dark"
-  a.navbar-brand href="http://localhost:3000/map"  Navbar  
+  a.navbar-brand E-cars stations  
   .navbar-nav
+    .nav-item.active
     - if current_user
       .nav-item.active
+        = link_to 'На карту', "http://e-cars-stations.herokuapp.com/map", class:'mx-2 nav-link navbar-link'
         - if current_user.admin?
           = link_to 'Админ панель', admin_index_path, class:'mx-2 nav-link navbar-link'
         = link_to 'Личный кабинет', user_path(current_user), class:'mx-2 nav-link navbar-link'
         = link_to 'Выйти', destroy_user_session_path, method: :delete, class:'mx-2 nav-link navbar-link'
     - else
       .nav-item.active
+        = link_to 'На карту', "http://e-cars-stations.herokuapp.com/map", class:'mx-2 nav-link navbar-link'
         = link_to 'Зарегистрироваться', new_user_registration_path, class:'mx-2 nav-link navbar-link'
         = link_to 'Войти', new_user_session_path, class:'mx-2 nav-link navbar-link'
