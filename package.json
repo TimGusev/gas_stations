@@ -12,7 +12,7 @@
     "axios": "^0.19.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "4.4.1",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "moment": "^2.25.3",
     "moment-timezone": "^0.5.28",
     "popper.js": "^1.16.1",
