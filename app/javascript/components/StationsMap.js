@@ -20,7 +20,6 @@ const StationsMap = ({ user }) => {
       setMapState({center: [coordinate.latitude, coordinate.longitude], zoom: 5 });
 
       axios.get(`https://chargerswebapi.azurewebsites.net/stations/${coordinate.id}`).then((res) => {
-          console.log(res.data)
           setBalloonProps(res.data)
         }).catch((error) => {
           console.log("Ошибка при получении данных о конкретной станции")

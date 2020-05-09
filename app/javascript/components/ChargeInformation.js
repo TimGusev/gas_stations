@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Progress, Row, Col } from 'antd';
 import axios from 'axios';
+import Moment from 'react-moment';
 
 const ChargeInformation = (props) => {
   const [chargeState, setChargeState] = useState({})
@@ -12,12 +13,13 @@ const ChargeInformation = (props) => {
   }, [])
 
   const getActualInfo = () => {
-    if(!content) return;
+    console.log(content)
+    if(!content.current) return;
     
     axios(
       { 
         method: "get",
-        url: `https://chargerswebapi.azurewebsites.net/charge/${props.location.state.user}/${props.location.state.id}`, 
+        url: `https://localhost:3000/charge/${1}/${1}`, 
         crossDomain: true
       }
       ).then((result) => {
@@ -26,7 +28,7 @@ const ChargeInformation = (props) => {
           setTimeout(function() { getActualInfo(); }, 1000);
         })
       .catch((error) => {
-          console.log("here is misteke")
+          console.log("here is misteke");
           setTimeout(function() { getActualInfo(); }, 1000);
         });
   }
@@ -39,7 +41,11 @@ const ChargeInformation = (props) => {
         <Col className="charge_information__info-block--text">
           <Row className="my-2">
             <Col>
-              <div>Начато в: {chargeState.startedAt}</div>
+              <div>
+                <Moment format="DD/MM/YYYY HH:mm">
+                  { chargeState.startedAt }
+                </Moment>
+              </div>
             </Col>
           </Row>
           <Row className="my-2">
