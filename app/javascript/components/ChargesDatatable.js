@@ -32,7 +32,7 @@ const ChargesDatatable = ({ user }) => {
     {
       name: 'Статус',
       selector: 'status',
-      cell: (row) => <Progress size="small" percent={row.currentAmountOfElectricity / row.totalAmountOfElectricity} />,
+      cell: (row) => <Progress size="small" percent={(row.currentAmountOfElectricity / row.totalAmountOfElectricity * 100)} />,
       maxWidth: "150px"
     },
     {
