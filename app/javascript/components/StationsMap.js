@@ -7,7 +7,7 @@ import CustomBalloon from "./CustomBalloon"
 
 const defaultMapState = {
   center: [55.751574, 37.573856],
-  zoom: 5,
+  zoom: 8,
 };
 
 const StationsMap = ({ user }) => {
@@ -54,7 +54,11 @@ const StationsMap = ({ user }) => {
                 geometry={[coordinate.latitude, coordinate.longitude]}  
                 options={
                   {
-                    hasBalloon: false,  
+                    hasBalloon: false,
+                    iconLayout: 'default#image',
+                    iconImageHref: "https://res.cloudinary.com/dscq2kq9y/image/upload/v1589052594/station_p2wb1p.png",
+                    iconImageSize: [88, 88],
+                    iconImageOffset: [-44, -88]  
                   } 
                 }
                 modules={['geoObject.addon.balloon']} 
