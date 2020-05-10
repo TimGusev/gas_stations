@@ -4,11 +4,6 @@ import { Tabs, Button, Modal, Form, Input, InputNumber, Alert } from 'antd';
 import axios from 'axios';
 
 const StationsDatatable = () => {
-  const data = [
-    {id: 1, name: "fff", cost: 56, power: 56, address: { latitude: 40, longitude:30 }, status: 0 }, 
-    {id: 2, name: "aaa", cost: 56, power: 56, address: { latitude: 40, longitude:30 }, status: 1 }
-  ];
-
   const [selectedRows, setSelectedRows] = useState([]);
   const [stations, setStations] = useState([]);
   const [newRender, setNewRender] = useState(false);
@@ -153,17 +148,12 @@ const StationsDatatable = () => {
     {
       name: 'id',
       selector: 'id',
-      maxWidth: "50px"
+      maxWidth: "80px"
     },
     {
       name: 'Название',
       selector: 'name',
       maxWidth: "250px"
-    },
-    {
-      name: 'Мощность',
-      selector: 'power',
-      maxWidth: "50px"
     },
     {
       name: 'Цена за 1 кВ',
@@ -182,8 +172,8 @@ const StationsDatatable = () => {
     },
     {
       name: 'Cостояние',
-      selector: 'status',
       maxWidth: "50px",
+      cell: (row) => row.status == 1 ? "Заряжает" : "Доступна"
     },
     {
       maxWidth: "50px",
@@ -195,7 +185,7 @@ const StationsDatatable = () => {
     {
       name: 'id',
       selector: 'id',
-      maxWidth: "50px"
+      maxWidth: "150px"
     },
     {
       name: 'Широта',
@@ -266,18 +256,6 @@ const StationsDatatable = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Мощность"
-            name="power"
-            rules={[
-              {
-                required: true,
-                message: 'Задайте мощность',
-              }
-            ]}
-          >
-            <InputNumber min={1} />
-          </Form.Item>
-          <Form.Item
             label="Цена за 1 Кв"
             name="cost"
             rules={[
@@ -324,18 +302,6 @@ const StationsDatatable = () => {
             ]}
           >
             <Input />
-          </Form.Item>
-          <Form.Item
-            label="Мощность"
-            name="power"
-            rules={[
-              {
-                required: true,
-                message: 'Задайте мощность',
-              }
-            ]}
-          >
-            <InputNumber min={1} />
           </Form.Item>
           <Form.Item
             label="Цена за 1 Кв"

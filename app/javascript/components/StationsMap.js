@@ -6,8 +6,8 @@ import _ from "underscore";
 import CustomBalloon from "./CustomBalloon"
 
 const defaultMapState = {
-  center: [55.751574, 37.573856],
-  zoom: 8,
+  center: [53.31, 28.023856],
+  zoom: 7,
 };
 
 const StationsMap = ({ user }) => {
@@ -17,7 +17,7 @@ const StationsMap = ({ user }) => {
 
   const handlePlaceMarkClick = useCallback(
     (coordinate) => {
-      setMapState({center: [coordinate.latitude, coordinate.longitude], zoom: 5 });
+      setMapState({center: [coordinate.latitude, coordinate.longitude], zoom: 8 });
 
       axios.get(`https://chargerswebapi.azurewebsites.net/stations/${coordinate.id}`).then((res) => {
           setBalloonProps(res.data)
