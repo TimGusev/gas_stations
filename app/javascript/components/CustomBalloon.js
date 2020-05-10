@@ -47,30 +47,39 @@ const CustomBalloon = ({station, handler, user}) => {
             Статус
           </span>
           <span className="balloon__properties--body">
-            { station.status }
+            { station.status == 1 ? "Заряжает" : "Доступна"}
           </span>
         </Col>
       </Row>
       <Row className="balloon__charge_container">
         { user ? 
-            (<Col className="balloon__charge-button">
-              <Link 
-                to={
-                  {
-                    pathname: '/calculator',
-                    state: {
-                      cost: station.cost,
-                      power: station.power,
-                      user:  user,
-                      station_id: station.id
+            ( station.status == 0 ? (
+                <Col className="balloon__charge-button">
+                <Link 
+                  to={
+                    {
+                      pathname: '/calculator',
+                      state: {
+                        cost: station.cost,
+                        power: station.power,
+                        user:  user,
+                        station_id: station.id
+                      }
                     }
                   }
-                }
-                className="btn btn-success"
-              >
-                Зарядиться
-              </Link>
-            </Col>) : (
+                  className="btn btn-success"
+                >
+                  Зарядиться
+                </Link>
+                </Col>
+              ) : (
+                <Col className="balloon__charge-warning">
+                  <span>
+                    Войдите в личный кабинет, чтобы заряжаться удалённо
+                  </span>
+                </Col>
+              )
+            ) : (
             <Col className="balloon__charge-warning">
               <span>
                 Войдите в личный кабинет, чтобы заряжаться удалённо
