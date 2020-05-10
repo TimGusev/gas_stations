@@ -26,7 +26,7 @@ const ChargesDatatable = ({ user }) => {
   const columns = [
     {
       name: 'Станция',
-      selector: 'name',
+      selector: 'stationName',
       maxWidth: "350px"
     },
     {
