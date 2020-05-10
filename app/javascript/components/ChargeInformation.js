@@ -13,7 +13,6 @@ const ChargeInformation = (props) => {
   }, [])
 
   const getActualInfo = () => {
-    console.log(content)
     if(!content.current) return;
     
     axios(
@@ -35,19 +34,32 @@ const ChargeInformation = (props) => {
   return (
     <div ref={content} className="container charge_information">
       <Row className="charge_information__title">
-        Идет зарядка
+        { chargeState.finishedAt ? "Зарядка завершена" : "Идет зарядка"}
       </Row>
       <Row className="charge_information__info-block">
         <Col className="charge_information__info-block--text">
           <Row className="my-2">
             <Col>
               <div>
-                <Moment format="DD/MM/YYYY HH:mm">
+                <span>Начато в: </span>
+                <Moment format="HH:mm DD/MM/YYYY">
                   { chargeState.startedAt }
                 </Moment>
               </div>
             </Col>
           </Row>
+          { chargeState.finishedAt && (
+            <Row className="my-2">
+              <Col>
+                <div>
+                  <span>Закончено в: </span>
+                  <Moment format="HH:mm DD/MM/YYYY">
+                    { chargeState.finishedAt }
+                  </Moment>
+                </div>
+              </Col>
+            </Row>)
+          }
           <Row className="my-2">
             <Col>
               <div>Заряжено: {chargeState.currentAmountOfElectricity} из {chargeState.totalAmountOfElectricity} кВатт</div>
