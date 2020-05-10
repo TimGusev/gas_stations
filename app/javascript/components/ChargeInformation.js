@@ -34,7 +34,7 @@ const ChargeInformation = (props) => {
   return (
     <div ref={content} className="container charge_information">
       <Row className="charge_information__title">
-        { chargeState.finishedAt ? "Зарядка завершена" : "Идет зарядка"}
+        { chargeState.isCompleted ? "Зарядка завершена" : "Идет зарядка"}
       </Row>
       <Row className="charge_information__info-block">
         <Col className="charge_information__info-block--text">
@@ -48,7 +48,7 @@ const ChargeInformation = (props) => {
               </div>
             </Col>
           </Row>
-          { chargeState.finishedAt && (
+          { chargeState.isCompleted && (
             <Row className="my-2">
               <Col>
                 <div>
