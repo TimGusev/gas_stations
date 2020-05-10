@@ -9,27 +9,29 @@ const ProfileInfo = ({user}) => {
           <h2>Мой профиль</h2>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          Почта: 
-        </Col>
-        <Col>
-          { user.email }
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          Имя: 
-        </Col>
-        <Col>
-          { user.username }
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <a href="/users/edit">Изменить профиль</a>
-        </Col>
-      </Row>
+      <div className="action-block">
+        <Row>
+          <Col>
+            Почта: 
+          </Col>
+          <Col>
+            { user.email }
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            Имя: 
+          </Col>
+          <Col>
+            { user.username }
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <a href="/users/edit">Изменить профиль</a>
+          </Col>
+        </Row>
+      </div>
     </div>
   )
 }

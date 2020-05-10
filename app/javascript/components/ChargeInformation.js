@@ -18,7 +18,7 @@ const ChargeInformation = (props) => {
     axios(
       { 
         method: "get",
-        url: `https://localhost:3000/charge/${1}/${1}`, 
+        url: `https://chargerswebapi.azurewebsites.net/${props.location.state.user}/${props.location.state.id}`, 
         crossDomain: true
       }
       ).then((result) => {

@@ -2,10 +2,14 @@
   max-width: 350px;
   border-radius: 8px;
   border: 1px solid #999;
-  padding: 20px 25px;
   margin: 40px 50px 40px 60px;
 }
 
 .profile_info__title {
+  padding: 20px 25px 0;
   border-bottom: 1px solid #999;
+}
+
+.action-block {
+  padding: 20px 25px;
 }
