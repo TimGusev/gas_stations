@@ -55,7 +55,7 @@ const Calculator = (props) => {
       <form className="calculator__wrapper">
         <Row className="calculator">
           <Row className="calculator__row">
-            <h2>Расчитать стоимость</h2>
+            <h2>Рассчитать стоимость</h2>
           </Row>
           <Row className="calculator__row">
             <Col className="calculator__field">
