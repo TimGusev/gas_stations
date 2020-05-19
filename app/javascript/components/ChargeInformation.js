@@ -14,20 +14,19 @@ const ChargeInformation = (props) => {
 
   const getActualInfo = () => {
     if(!content.current) return;
-    
+
     axios(
-      { 
+      {
         method: "get",
-        url: `https://chargerswebapi.azurewebsites.net/charge/${props.location.state.user}/${props.location.state.id}`, 
+        url: `https://chargerswebapi.azurewebsites.net/charge/${props.location.state.user}/${props.location.state.id}`,
         crossDomain: true
       }
       ).then((result) => {
           setChargeState(result.data);
-          if(result.data.currentAmountOfElectricity / result.data.totalAmountOfElectricity * 100 >= 100) return; 
+          if(result.data.currentAmountOfElectricity / result.data.totalAmountOfElectricity * 100 >= 100) return;
           setTimeout(function() { getActualInfo(); }, 1000);
         })
       .catch((error) => {
-          console.log("here is misteke");
           setTimeout(function() { getActualInfo(); }, 1000);
         });
   }

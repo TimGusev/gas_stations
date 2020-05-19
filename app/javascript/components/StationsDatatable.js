@@ -16,19 +16,18 @@ const StationsDatatable = () => {
   const [isObjectLoaded, setIsObjectLoaded] = useState(false);
   const [unRegistratedStations, setUnRegistratedStations] = useState([]);
   const [isUnregistratedLoaded, setIsUnregistratedLoaded] = useState(true);
-  
+
   useEffect(() => {
     if (isObjectLoaded) return;
 
     axios({
       method: 'get',
       url: "https://chargerswebapi.azurewebsites.net/stations",
-    }).then((response) => { 
+    }).then((response) => {
         setStations(response.data);
         setIsObjectLoaded(true);
       })
       .catch((error) => {
-        console.log("ошибка при получении станций")
         setIsObjectLoaded(true);
       });
 
@@ -40,7 +39,7 @@ const StationsDatatable = () => {
     axios({
       method: 'get',
       url: "https://chargerswebapi.azurewebsites.net/unregistered/stations",
-    }).then((response) => { 
+    }).then((response) => {
         setUnRegistratedStations(response.data);
         setIsUnregistratedLoaded(true);
       })
@@ -55,11 +54,11 @@ const StationsDatatable = () => {
   };
 
   const handleCancelClick = () => {
-    setModalVisible(false);  
+    setModalVisible(false);
   }
 
   const handleRedCancelClick = () => {
-    setRedModalVisible(false);  
+    setRedModalVisible(false);
   }
 
   const addRedClickHandler = (row, e) => {
@@ -73,14 +72,14 @@ const StationsDatatable = () => {
       method: 'patch',
       url: `https://chargerswebapi.azurewebsites.net/stations/${redFormProps.id}`,
       data: values
-    }).then(() => { 
+    }).then(() => {
         stations.map(el => {
           var found = [redFormProps].find(s => s["id"] === el["id"]);
-          
+
           if (found) {
             Object.assign(el, values);
           }
-          
+
           return el;
         });
         setRedFormProps(null);
@@ -92,12 +91,12 @@ const StationsDatatable = () => {
     axios({
       method: 'post',
       url: "https://chargerswebapi.azurewebsites.net/stations/remove",
-      data: selectedRows.map(el => el.id) 
+      data: selectedRows.map(el => el.id)
     })
       .then(() => {
           setStations(stations.filter(item => !selectedRows.includes(item)));
           state.selectedRows = []
-        } 
+        }
       )
       .catch((error) => console.log("ошибка при удалении"));
     setToggleCleared(!toggleCleared);
@@ -131,7 +130,7 @@ const StationsDatatable = () => {
       })
       .catch((error) => {setError(true)});
   };
-    
+
   const contextActions = [
     <Button key="delete" onClick={deleteButtonClickHandler}>Удалить</Button>
   ];
@@ -197,7 +196,7 @@ const StationsDatatable = () => {
       selector: 'longitude',
       maxWidth: "50px",
     },
-    { 
+    {
       maxWidth: "50px",
       cell: (row) => <Button key="add" onClick={(e) => addClickHandler(row, e)}>Добавить</Button>
     }
@@ -212,7 +211,7 @@ const StationsDatatable = () => {
             title="Недобавленные станции"
             actions={new_actions}
             progressPending={!isUnregistratedLoaded}
-          /> 
+          />
         ) : (
           <DataTable
             data={stations}

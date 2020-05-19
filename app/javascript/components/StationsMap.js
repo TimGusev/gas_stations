@@ -26,13 +26,12 @@ const StationsMap = ({ user }) => {
         })
     }
   )
-  
+
   useEffect(() => {
-    axios.get("https://chargerswebapi.azurewebsites.net/map/stations").then((response) => { 
+    axios.get("https://chargerswebapi.azurewebsites.net/map/stations").then((response) => {
         setCoordinates(response.data)
       })
       .catch((error) => {
-        console.log(error)
       });
   }, []);
 
@@ -41,26 +40,26 @@ const StationsMap = ({ user }) => {
   return (
     <div>
       <YMaps>
-        <Map 
+        <Map
           state={mapState}
           options={{ minZoom: 4, maxZoom: 17 }}
-          className="map" 
+          className="map"
           onClick={() => setBalloonProps({})}
         >
           {
-            coordinates.map(coordinate => 
-              <Placemark 
-                geometry={[coordinate.latitude, coordinate.longitude]}  
+            coordinates.map(coordinate =>
+              <Placemark
+                geometry={[coordinate.latitude, coordinate.longitude]}
                 options={
                   {
                     hasBalloon: false,
                     iconLayout: 'default#image',
                     iconImageHref: "https://res.cloudinary.com/dscq2kq9y/image/upload/v1589052594/station_p2wb1p.png",
                     iconImageSize: [88, 88],
-                    iconImageOffset: [-44, -88]  
-                  } 
+                    iconImageOffset: [-44, -88]
+                  }
                 }
-                modules={['geoObject.addon.balloon']} 
+                modules={['geoObject.addon.balloon']}
                 onClick={ () => handlePlaceMarkClick(coordinate) }
               />
             )

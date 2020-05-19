@@ -9,17 +9,16 @@ import ProfileInfo from './ProfileInfo';
 const ChargesDatatable = ({ user }) => {
   const [chargeState, setChargeState] = useState([])
   const [isLoaded, setIsLoaded] = useState(false);
-      
+
 
   useEffect(() => {
     axios({
       method: 'get',
       url: `https://chargerswebapi.azurewebsites.net/charge/${user.id}`,
-    }).then((response) => { 
+    }).then((response) => {
         setChargeState(response.data);
       })
       .catch((error) => {
-        console.log("ошибка при получении зарядок")
       });
   }, []);
 

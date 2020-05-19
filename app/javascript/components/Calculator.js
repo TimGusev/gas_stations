@@ -32,7 +32,7 @@ const Calculator = (props) => {
     },
     [],
   );
-  
+
   const payClickHandler = () => {
     axios({
       method: 'post',
@@ -41,12 +41,11 @@ const Calculator = (props) => {
         stationId: props.location.state.station_id,
         amountOfEletrcity: calcState.neededPower
       }
-    }).then((response) => { 
+    }).then((response) => {
         setVisible(true);
         setChargeId(response.data)
       })
       .catch((error) => {
-        console.log("ошибка при оплате")
       });
   }
 
